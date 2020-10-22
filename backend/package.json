@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev src/index.ts --transpileOnly --ignore-watch node_modules",
-    "typeorm": "ts-node ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -30,7 +30,6 @@
     "eslint-plugin-import": "2.21.2",
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.1.2",
-    "ts-node": "3.3.0",
     "ts-node-dev": "^1.0.0",
     "typescript": "3.3.3333"
   }
