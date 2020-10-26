@@ -24,6 +24,6 @@ export default class CreateSubjectTable1603660570545
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('class');
+    await queryRunner.dropTable('subject');
   }
 }

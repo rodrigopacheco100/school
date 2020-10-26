@@ -29,7 +29,8 @@ export default class CreateClassTable1603662583937
           },
           {
             name: 'year',
-            type: 'smallint'
+            type: 'smallint',
+            width: 4
           }
         ]
       })
@@ -40,18 +41,22 @@ export default class CreateClassTable1603662583937
         name: 'subject_fk',
         columnNames: ['subject_id'],
         referencedTableName: 'subject',
-        referencedColumnNames: ['id']
+        referencedColumnNames: ['id'],
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       }),
       new TableForeignKey({
         name: 'teacher_fk',
         columnNames: ['teacher_id'],
         referencedTableName: 'teacher',
-        referencedColumnNames: ['id']
+        referencedColumnNames: ['id'],
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       })
     ]);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('class_teacher');
+    await queryRunner.dropTable('class');
   }
 }

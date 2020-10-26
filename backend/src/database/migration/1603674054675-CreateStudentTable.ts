@@ -27,5 +27,7 @@ export default class CreateStudentTable1603674054675
     );
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {}
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropTable('student');
+  }
 }

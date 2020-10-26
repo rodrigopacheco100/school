@@ -1,9 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('teacher')
-export default class Teacher {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
+@Entity('student')
+export default class Student {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;
