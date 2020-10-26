@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn
@@ -27,10 +28,10 @@ export default class Class {
   @Column()
   year: number;
 
-  @OneToMany(() => Student, student => student.id, {
+  @ManyToMany(() => Student, student => student.id, {
     onDelete: 'RESTRICT',
     onUpdate: 'CASCADE'
   })
   @JoinColumn()
-  students: Student[];
+  students?: Student[];
 }

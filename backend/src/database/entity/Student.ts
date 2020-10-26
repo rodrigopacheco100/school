@@ -1,8 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  PrimaryGeneratedColumn
+} from 'typeorm';
+import Class from './Class';
 
 @Entity('student')
 export default class Student {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
   @Column()
@@ -10,4 +17,11 @@ export default class Student {
 
   @Column()
   birth: Date;
+
+  @ManyToMany(() => Class, class1 => class1.id, {
+    onDelete: 'RESTRICT',
+    onUpdate: 'CASCADE'
+  })
+  @JoinColumn()
+  classes?: Class[];
 }

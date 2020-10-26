@@ -9,10 +9,10 @@ export default class CreateStudentTable1603674054675
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'integer',
             isPrimary: true,
             isGenerated: true,
-            generationStrategy: 'uuid'
+            generationStrategy: 'increment'
           },
           {
             name: 'name',
