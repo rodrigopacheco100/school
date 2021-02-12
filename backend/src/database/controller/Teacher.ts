@@ -4,9 +4,6 @@ import Teacher from '../entity/Teacher';
 import { teacherView, teacherViewAll } from '../view/Teacher';
 
 export default class TeacherController {
-  /**
-   * FIND ALL TeacherS
-   */
   public async index(_: Request, response: Response): Promise<Response> {
     const teacherRepository = getRepository(Teacher);
 
@@ -15,9 +12,6 @@ export default class TeacherController {
     return response.json(teacherViewAll(teachers));
   }
 
-  /**
-   * FIND ONE BY ID
-   */
   public async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 

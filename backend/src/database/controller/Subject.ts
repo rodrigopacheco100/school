@@ -3,9 +3,6 @@ import { Request, Response } from 'express';
 import Subject from '../entity/Subject';
 
 export default class SubjectController {
-  /**
-   * FIND ALL SUBJECTS
-   */
   public async index(_: Request, response: Response): Promise<Response> {
     const subjectRepository = getRepository(Subject);
 
@@ -14,9 +11,6 @@ export default class SubjectController {
     return response.json(subjects);
   }
 
-  /**
-   * FIND ONE BY ID
-   */
   public async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
