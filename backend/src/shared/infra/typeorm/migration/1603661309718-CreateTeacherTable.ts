@@ -19,7 +19,7 @@ export default class CreateTeacherTable1603661309718
             type: 'varchar'
           },
           {
-            name: 'birth',
+            name: 'birthday',
             type: 'date'
           }
         ]

@@ -1,7 +1,10 @@
 import { getRepository } from 'typeorm';
 import { Request, Response } from 'express';
-import Teacher from '../entity/Teacher';
-import { teacherView, teacherViewAll } from '../view/Teacher';
+import Teacher from '@modules/teacher/infra/typeorm/entity/Teacher';
+import {
+  teacherView,
+  teacherViewAll
+} from '@modules/teacher/infra/typeorm/view/TeacherView';
 
 export default class TeacherController {
   public async index(_: Request, response: Response): Promise<Response> {

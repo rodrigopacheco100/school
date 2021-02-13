@@ -20,11 +20,11 @@ export default class CreateClassTable1603662583937
             generationStrategy: 'increment'
           },
           {
-            name: 'subject_id',
+            name: 'subjectId',
             type: 'integer'
           },
           {
-            name: 'teacher_id',
+            name: 'teacherId',
             type: 'integer'
           },
           {
@@ -39,7 +39,7 @@ export default class CreateClassTable1603662583937
     await queryRunner.createForeignKeys('class', [
       new TableForeignKey({
         name: 'subject_fk',
-        columnNames: ['subject_id'],
+        columnNames: ['subjectId'],
         referencedTableName: 'subject',
         referencedColumnNames: ['id'],
         onUpdate: 'CASCADE',
@@ -47,7 +47,7 @@ export default class CreateClassTable1603662583937
       }),
       new TableForeignKey({
         name: 'teacher_fk',
-        columnNames: ['teacher_id'],
+        columnNames: ['teacherId'],
         referencedTableName: 'teacher',
         referencedColumnNames: ['id'],
         onUpdate: 'CASCADE',

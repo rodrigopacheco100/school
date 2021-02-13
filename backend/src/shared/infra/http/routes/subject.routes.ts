@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import SubjectController from '../database/controller/Subject';
+import SubjectController from '@modules/class/infra/typeorm/controller/SubjectController';
 
 const routes = Router();
 

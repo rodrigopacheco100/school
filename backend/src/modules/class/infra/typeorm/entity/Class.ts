@@ -7,10 +7,10 @@ import {
   OneToOne,
   PrimaryGeneratedColumn
 } from 'typeorm';
-import Student from './Student';
+import Student from '@modules/student/infra/typeorm/entity/Student';
 
+import Teacher from '@modules/teacher/infra/typeorm/entity/Teacher';
 import Subject from './Subject';
-import Teacher from './Teacher';
 
 @Entity('class')
 export default class Class {

@@ -1,17 +1,15 @@
 import { format } from 'date-fns';
 import Teacher from '../entity/Teacher';
 
-interface TeacherViewData {
-  id: number;
-  name: string;
-  birth: string;
+interface TeacherViewData extends Omit<Teacher, 'birthday'> {
+  birthday: string;
 }
 
 const teacherView = (teacher: Teacher): TeacherViewData => {
   return {
     id: teacher.id,
     name: teacher.name,
-    birth: `${format(teacher.birth, 'dd/MM/yyyy')}`
+    birthday: `${format(teacher.birthday, 'dd/MM/yyyy')}`
   };
 };
 

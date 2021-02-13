@@ -9,5 +9,5 @@ export default class Teacher {
   name: string;
 
   @Column()
-  birth: Date;
+  birthday: Date;
 }

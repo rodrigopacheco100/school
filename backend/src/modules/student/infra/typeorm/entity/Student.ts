@@ -5,7 +5,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn
 } from 'typeorm';
-import Class from './Class';
+import Class from '@modules/class/infra/typeorm/entity/Class';
 
 @Entity('student')
 export default class Student {
@@ -16,7 +16,7 @@ export default class Student {
   name: string;
 
   @Column()
-  birth: Date;
+  birthday: Date;
 
   @ManyToMany(() => Class, class1 => class1.id, {
     onDelete: 'RESTRICT',
