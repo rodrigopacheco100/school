@@ -6,4 +6,6 @@ tmp/
 temp/
 dist/
 .env
+.env.production
+.env.local
 coverage/

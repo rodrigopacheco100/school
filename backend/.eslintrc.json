@@ -20,7 +20,11 @@
     "prettier"
   ],
   "rules": {
+    "no-underscore-dangle": "off",
+    "no-console": "off",
+    "import/prefer-default-export": "off",
     "no-shadow": "off",
+    "no-useless-constructor": "off",
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
     "camelcase": "off",
