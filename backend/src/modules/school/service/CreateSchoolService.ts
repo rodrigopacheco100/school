@@ -1,7 +1,8 @@
 import AppError from '@shared/infra/http/error/AppError';
 import { validateBr } from 'js-brasil';
-import { container, inject, injectable } from 'tsyringe';
-import CreateAccountService from '@modules/account/services/CreateAccountService';
+import { inject, injectable } from 'tsyringe';
+import CreateAccountService from '@modules/account/service/CreateAccountService';
+import IAccountRepository from '@modules/account/repository/IAccountRepository';
 import School from '../infra/typeorm/entity/School';
 import ISchoolRepository from '../repository/ISchoolRepository';
 import { CreateSchoolBody } from '../infra/typeorm/core';
@@ -10,7 +11,10 @@ import { CreateSchoolBody } from '../infra/typeorm/core';
 export default class CreateSchoolService {
   constructor(
     @inject('SchoolRepository')
-    private schoolRepository: ISchoolRepository
+    private schoolRepository: ISchoolRepository,
+
+    @inject('AccountRepository')
+    private accountRepository: IAccountRepository
   ) {}
 
   async execute({
@@ -32,7 +36,9 @@ export default class CreateSchoolService {
     if (schoolByEmail) throw new AppError('Email já está sendo utilizado');
     if (schoolByCNPJ) throw new AppError('CNPJ já está sendo utilizado');
 
-    const createAccountService = container.resolve(CreateAccountService);
+    const createAccountService = new CreateAccountService(
+      this.accountRepository
+    );
     const account = await createAccountService.execute({
       username,
       password,

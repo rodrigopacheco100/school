@@ -1,16 +1,11 @@
 import AppError from '@shared/infra/http/error/AppError';
 import { hash } from 'bcrypt';
-import { inject, injectable } from 'tsyringe';
 import CreateAccountDTO from '../dtos/CreateAccountDTO';
 import Account from '../infra/typeorm/entity/Account';
 import IAccountRepository from '../repository/IAccountRepository';
 
-@injectable()
 export default class CreateAccountService {
-  constructor(
-    @inject('AccountRepository')
-    private accountRepository: IAccountRepository
-  ) {}
+  constructor(private accountRepository: IAccountRepository) {}
 
   async execute({ password, ...rest }: CreateAccountDTO): Promise<Account> {
     const accountByUsername = await this.accountRepository.findByUsername(
