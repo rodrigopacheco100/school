@@ -3,35 +3,22 @@ import {
   Entity,
   JoinColumn,
   ManyToMany,
-  OneToMany,
+  ObjectIdColumn,
   OneToOne,
-  PrimaryGeneratedColumn
+  ObjectID
 } from 'typeorm';
-import Student from '@modules/student/infra/typeorm/entity/Student';
 
-import Teacher from '@modules/teacher/infra/typeorm/entity/Teacher';
-import Subject from './Subject';
-
-@Entity('class')
+@Entity('Class')
 export default class Class {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
+  @ObjectIdColumn()
+  _id: ObjectID;
 
-  @OneToOne(() => Subject)
-  @JoinColumn()
-  subject: Subject;
+  @Column()
+  subjectId: ObjectID;
 
-  @OneToOne(() => Teacher)
-  @JoinColumn()
-  teacher: Teacher;
+  @Column()
+  teacherId: ObjectID;
 
   @Column()
   year: number;
-
-  @ManyToMany(() => Student, student => student.id, {
-    onDelete: 'RESTRICT',
-    onUpdate: 'CASCADE'
-  })
-  @JoinColumn()
-  students?: Student[];
 }

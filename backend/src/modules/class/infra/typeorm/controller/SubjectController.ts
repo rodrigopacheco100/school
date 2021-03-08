@@ -1,10 +1,12 @@
-import { getRepository } from 'typeorm';
+import { getMongoRepository } from 'typeorm';
 import { Request, Response } from 'express';
+import { ObjectID } from 'mongodb';
+import AppError from '@shared/infra/http/error/AppError';
 import Subject from '../entity/Subject';
 
 export default class SubjectController {
   public async index(_: Request, response: Response): Promise<Response> {
-    const subjectRepository = getRepository(Subject);
+    const subjectRepository = getMongoRepository(Subject);
 
     const subjects = await subjectRepository.find();
 
@@ -12,19 +14,19 @@ export default class SubjectController {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
+    const { _id } = request.params;
 
-    const subjectRepository = getRepository(Subject);
+    const subjectRepository = getMongoRepository(Subject);
 
-    const subject = await subjectRepository.findOne({ id: Number(id) });
+    const subject = await subjectRepository.findOne({ _id: new ObjectID(_id) });
 
     return response.json(subject);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const subjectRepository = getRepository(Subject);
+    const { name } = request.body as Subject;
 
-    const { name } = request.body;
+    const subjectRepository = getMongoRepository(Subject);
 
     const subject = subjectRepository.create({ name });
     await subjectRepository.save(subject);
@@ -33,26 +35,33 @@ export default class SubjectController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const subjectRepository = getRepository(Subject);
+    const { _id, name } = request.body as Subject;
 
-    const { id, name } = request.body;
+    const subjectRepository = getMongoRepository(Subject);
 
-    const subject = await subjectRepository.findOne({ id });
-    subject.name = name;
+    const subject = await subjectRepository.findOne({
+      where: { _id: new ObjectID(_id) }
+    });
+
+    if (!subject) throw new AppError('Subject not found');
+
+    if (name) subject.name = name;
     const updatedSubject = await subjectRepository.save(subject);
 
     return response.json(updatedSubject);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const subjectRepository = getRepository(Subject);
+    const { _id } = request.body as Subject;
+    const subjectRepository = getMongoRepository(Subject);
 
-    const { id } = request.body;
+    const subject = await subjectRepository.findOne({
+      where: { _id: new ObjectID(_id) }
+    });
 
-    const subject = await subjectRepository.findOne({ id });
+    if (!subject) throw new AppError('Subject not found');
 
     await subjectRepository.delete(subject);
-
     return response.status(200).send();
   }
 }

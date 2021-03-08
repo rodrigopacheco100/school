@@ -1,9 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ObjectID } from 'mongodb';
+import { Column, Entity, ObjectIdColumn } from 'typeorm';
 
-@Entity('subject')
+@Entity('Subject')
 export default class Subject {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
+  @ObjectIdColumn()
+  _id: ObjectID;
 
   @Column()
   name: string;
