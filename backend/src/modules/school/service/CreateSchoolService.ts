@@ -1,5 +1,5 @@
 import AppError from '@shared/infra/http/error/AppError';
-import { validateBr } from 'js-brasil';
+import { cnpj as cnpjValidator } from 'cpf-cnpj-validator';
 import { inject, injectable } from 'tsyringe';
 import CreateAccountService from '@modules/account/service/CreateAccountService';
 import IAccountRepository from '@modules/account/repository/IAccountRepository';
@@ -26,7 +26,9 @@ export default class CreateSchoolService {
     username,
     contact
   }: CreateSchoolBody): Promise<School> {
-    if (!validateBr.cnpj(cnpj)) throw new AppError('CNPJ não é válido');
+    const formattedCNPJ = cnpjValidator.format(cnpj);
+    if (!cnpjValidator.isValid(formattedCNPJ))
+      throw new AppError('CNPJ não é válido');
 
     console.log(contact.email);
     const [schoolByEmail, schoolByCNPJ] = await Promise.all([
@@ -48,7 +50,7 @@ export default class CreateSchoolService {
     const school = await this.schoolRepository.create({
       _id: account._id,
       address,
-      cnpj,
+      cnpj: formattedCNPJ,
       name,
       contact
     });
