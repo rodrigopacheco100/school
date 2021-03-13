@@ -1,11 +1,4 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ObjectIdColumn,
-  UpdateDateColumn,
-  ObjectID
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, ObjectIdColumn, UpdateDateColumn, ObjectID } from 'typeorm';
 import Address from '@shared/infra/typeorm/entity/Address';
 import Contact from '@shared/infra/typeorm/entity/Contact';
 

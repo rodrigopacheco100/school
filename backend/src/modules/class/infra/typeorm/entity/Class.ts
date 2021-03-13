@@ -1,12 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToMany,
-  ObjectIdColumn,
-  OneToOne,
-  ObjectID
-} from 'typeorm';
+import { Column, Entity, ObjectIdColumn, ObjectID } from 'typeorm';
 
 @Entity('Class')
 export default class Class {
