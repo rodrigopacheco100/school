@@ -1,12 +1,11 @@
 import CreateTeacherDTO from '@modules/teacher/dtos/CreateTeacherDTO';
 import Teacher from '@modules/teacher/infra/typeorm/entity/Teacher';
 import { AccountType } from '@shared/types/enums';
-import { crypto, date } from '@shared/utils';
 
 import { ObjectID } from 'typeorm';
 import ITeacherRepository from '../ITeacherRepository';
 
-export default class SchoolRepository implements ITeacherRepository {
+export default class FakeTeacherRepository implements ITeacherRepository {
   teachers: Teacher[] = [];
 
   async create({ ...rest }: CreateTeacherDTO): Promise<Teacher> {

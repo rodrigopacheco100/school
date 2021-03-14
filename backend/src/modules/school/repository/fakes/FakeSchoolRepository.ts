@@ -5,7 +5,7 @@ import { AccountType } from '@shared/types/enums';
 
 import { ObjectID } from 'typeorm';
 
-export default class SchoolRepository implements ISchoolRepository {
+export default class FakeSchoolRepository implements ISchoolRepository {
   schools: School[] = [];
 
   async create({ ...rest }: CreateSchoolDTO): Promise<School> {
