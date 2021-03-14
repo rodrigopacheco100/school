@@ -8,10 +8,10 @@ export default class Account {
   _id: ObjectID;
 
   @Column()
-  username: string;
+  type: AccountType;
 
   @Column()
-  type: AccountType;
+  username: string;
 
   @Column()
   password: string;
