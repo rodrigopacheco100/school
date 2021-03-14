@@ -41,10 +41,11 @@ export default class CreateTeacherService {
       cpf,
       name,
       contact,
-      grades: grades.map(({ course, educationalInstitution, finishDate, startDate }) => {
+      grades: grades.map(({ course, educationalInstitution, type, finishDate, startDate }) => {
         return {
           educationalInstitution,
           course,
+          type,
           startDate: date.convertBrazilianStringDateToUTC(String(startDate)),
           finishDate: date.convertBrazilianStringDateToUTC(String(finishDate))
         };

@@ -34,3 +34,12 @@ export enum AccountType {
   Teacher = 'teacher',
   Student = 'student'
 }
+
+export enum GradeType {
+  Course = 'course',
+  Technical = 'technical',
+  Graduation = 'graduation',
+  PostGraduation = 'postGraduation',
+  Master = 'master',
+  PhD = 'phd'
+}
