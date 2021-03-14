@@ -22,7 +22,7 @@ export default class CreateTeacherService {
     username,
     birth
   }: CreateTeacherDTO): Promise<Teacher> {
-    if (!CPF.isValid(cpf)) throw new AppError('CNPJ não é válido');
+    if (!CPF.isValid(cpf)) throw new AppError('CPF não é válido');
 
     const [teacherByCPF, teacherByUsername, teacherByEmail] = await Promise.all([
       this.teacherRepository.findByCPF(cpf),
