@@ -8,6 +8,7 @@ import CreateStudentService from '@modules/student/service/CreateStudentService'
 
 import { contactJoiSchema } from '@shared/infra/typeorm/entity/Contact';
 import { addressJoiSchema } from '@shared/infra/typeorm/entity/Address';
+import { parentJoiSchema } from '../../typeorm/entity/Parent';
 
 type Schema = {
   [k in keyof CreateStudentDTO]: Joi.Schema;
@@ -21,6 +22,7 @@ export const createStudent = async (request: Request, response: Response): Promi
     name: Joi.string().max(156).required(),
     birth: Joi.string().regex(new RegExp('[0-9]{2}[-|/]{1}[0-9]{2}[-|/]{1}[0-9]{4}')).required(),
     cpf: Joi.string().length(11).optional().default(null),
+    parents: Joi.array().items(parentJoiSchema).min(1).required(),
     address: Joi.object(addressJoiSchema).required(),
     confirmedAt: Joi.valid(null).optional().default(null)
   };

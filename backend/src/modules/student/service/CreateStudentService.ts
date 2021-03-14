@@ -12,7 +12,17 @@ export default class CreateStudentService {
     private studentRepository: IStudentRepository
   ) {}
 
-  async execute({ address, contact, cpf, name, password, username, birth }: CreateStudentDTO): Promise<Student> {
+  async execute({
+    address,
+    contact,
+    cpf,
+    name,
+    password,
+    username,
+    birth,
+    parents,
+    confirmedAt
+  }: CreateStudentDTO): Promise<Student> {
     if (cpf) {
       if (!CPF.isValid(cpf)) throw new AppError('CPF não é válido');
       const studentByCPF = this.studentRepository.findByCPF(cpf);
@@ -34,6 +44,12 @@ export default class CreateStudentService {
       cpf,
       name,
       contact,
+      parents: parents.map(parent => ({
+        name: parent.name,
+        cpf: parent.cpf,
+        birth: date.convertBrazilianStringDateToUTC(String(parent.birth)),
+        contact: parent.contact
+      })),
       birth: date.convertBrazilianStringDateToUTC(String(birth)),
       confirmedAt
     });
