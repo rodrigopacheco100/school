@@ -1,27 +1,13 @@
-import { Column, CreateDateColumn, Entity, ObjectIdColumn, UpdateDateColumn, ObjectID } from 'typeorm';
-import Address from '@shared/infra/typeorm/entity/Address';
-import Contact from '@shared/infra/typeorm/entity/Contact';
+import { Column, Entity } from 'typeorm';
 
-@Entity('School')
-export default class School {
-  @ObjectIdColumn()
-  _id: ObjectID;
+import Account from '@shared/infra/typeorm/entity/Account';
+import { AccountType } from '@shared/types/enums';
 
-  @Column()
-  name: string;
-
+@Entity('Account')
+export default class School extends Account {
   @Column()
   cnpj: string;
 
   @Column()
-  contact: Contact;
-
-  @Column()
-  address: Address;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @CreateDateColumn()
-  createdAt: Date;
+  type: AccountType.School;
 }

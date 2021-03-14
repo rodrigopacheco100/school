@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createSchool } from '../../typeorm/core';
+import { createSchool } from '../core';
 
 const routes = Router();
 
