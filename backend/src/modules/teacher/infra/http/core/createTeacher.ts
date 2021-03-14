@@ -3,11 +3,12 @@ import { container } from 'tsyringe';
 import Joi from 'joi';
 
 import AppError from '@shared/infra/http/error/AppError';
-import { addressJoiSchema } from '@shared/infra/typeorm/entity/Address';
 import CreateTeacherDTO from '@modules/teacher/dtos/CreateTeacherDTO';
+import CreateTeacherService from '@modules/teacher/service/CreateTeacherService';
 
 import { contactJoiSchema } from '@shared/infra/typeorm/entity/Contact';
-import CreateTeacherService from '@modules/teacher/service/CreateTeacherService';
+import { addressJoiSchema } from '@shared/infra/typeorm/entity/Address';
+import { gradeJoiSchema } from '../../typeorm/entity/Grade';
 
 type Schema = {
   [k in keyof CreateTeacherDTO]: Joi.Schema;
@@ -25,7 +26,7 @@ export const createTeacher = async (
     birth: Joi.string().regex(new RegExp('[0-9]{2}[-|/]{1}[0-9]{2}[-|/]{1}[0-9]{4}')).required(),
     cpf: Joi.string().length(11).required(),
     address: Joi.object(addressJoiSchema).required(),
-    grades: Joi.array().items(Joi.string()).required()
+    grades: Joi.array().items(gradeJoiSchema).required()
   };
   const validate = Joi.object(schema).validate(request.body, {
     abortEarly: false

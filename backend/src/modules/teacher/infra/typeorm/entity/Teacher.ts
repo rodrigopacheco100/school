@@ -1,6 +1,7 @@
 import Account from '@shared/infra/typeorm/entity/Account';
 import { AccountType } from '@shared/types/enums';
 import { Column, Entity } from 'typeorm';
+import Grade from './Grade';
 
 @Entity('Account')
 export default class Teacher extends Account {
@@ -14,5 +15,5 @@ export default class Teacher extends Account {
   type: AccountType.Teacher;
 
   @Column()
-  grades: string[];
+  grades: Grade[];
 }
