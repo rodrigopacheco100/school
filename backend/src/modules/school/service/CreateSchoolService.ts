@@ -27,7 +27,7 @@ export default class CreateSchoolService {
 
     const school = await this.schoolRepository.create({
       address,
-      cnpj: CNPJ.format(cnpj),
+      cnpj,
       name,
       contact,
       password,

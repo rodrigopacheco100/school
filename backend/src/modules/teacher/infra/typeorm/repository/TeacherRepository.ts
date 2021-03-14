@@ -1,7 +1,6 @@
 import CreateTeacherDTO from '@modules/teacher/dtos/CreateTeacherDTO';
 import ITeacherRepository from '@modules/teacher/repository/ITeacherRepository';
 import { AccountType } from '@shared/types/enums';
-import { crypto, date } from '@shared/utils';
 import { getMongoRepository, ObjectID } from 'typeorm';
 import Teacher from '../entity/Teacher';
 

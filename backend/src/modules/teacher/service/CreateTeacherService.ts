@@ -38,7 +38,7 @@ export default class CreateTeacherService {
       username,
       password: await crypto.encrypt(password),
       address,
-      cpf: CPF.format(cpf),
+      cpf,
       name,
       contact,
       grades,
