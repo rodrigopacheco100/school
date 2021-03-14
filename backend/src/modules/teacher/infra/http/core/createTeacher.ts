@@ -14,10 +14,7 @@ type Schema = {
   [k in keyof CreateTeacherDTO]: Joi.Schema;
 };
 
-export const createTeacher = async (
-  request: Request<null, null, CreateTeacherDTO>,
-  response: Response
-): Promise<Response> => {
+export const createTeacher = async (request: Request, response: Response): Promise<Response> => {
   const schema: Schema = {
     username: Joi.string().required(),
     password: Joi.string().min(8).max(24).required(),
@@ -26,7 +23,8 @@ export const createTeacher = async (
     birth: Joi.string().regex(new RegExp('[0-9]{2}[-|/]{1}[0-9]{2}[-|/]{1}[0-9]{4}')).required(),
     cpf: Joi.string().length(11).required(),
     address: Joi.object(addressJoiSchema).required(),
-    grades: Joi.array().items(gradeJoiSchema).required()
+    grades: Joi.array().items(gradeJoiSchema).required(),
+    confirmedAt: Joi.valid(null).optional().default(null)
   };
   const validate = Joi.object(schema).validate(request.body, {
     abortEarly: false

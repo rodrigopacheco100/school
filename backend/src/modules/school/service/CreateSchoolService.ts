@@ -12,7 +12,7 @@ export default class CreateSchoolService {
     private schoolRepository: ISchoolRepository
   ) {}
 
-  async execute({ address, cnpj, name, password, username, contact }: CreateSchoolDTO): Promise<School> {
+  async execute({ address, cnpj, name, password, username, contact, confirmedAt }: CreateSchoolDTO): Promise<School> {
     if (!CNPJ.isValid(cnpj)) throw new AppError('CNPJ não é válido');
 
     const [schoolByCNPJ, schoolByUsername, schoolByEmail] = await Promise.all([
@@ -31,7 +31,8 @@ export default class CreateSchoolService {
       name,
       contact,
       password,
-      username
+      username,
+      confirmedAt
     });
 
     return school;

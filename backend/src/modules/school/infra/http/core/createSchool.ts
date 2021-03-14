@@ -13,19 +13,16 @@ type Schema = {
   [k in keyof CreateSchoolDTO]: Joi.Schema;
 };
 
-const schema: Schema = {
-  username: Joi.string().required(),
-  password: Joi.string().min(8).max(24).required(),
-  contact: Joi.object(contactJoiSchema).required(),
-  name: Joi.string().max(156).required(),
-  cnpj: Joi.string().length(14).required(),
-  address: Joi.object(addressJoiSchema).required()
-};
-
-export const createSchool = async (
-  request: Request<null, null, CreateSchoolDTO>,
-  response: Response
-): Promise<Response> => {
+export const createSchool = async (request: Request, response: Response): Promise<Response> => {
+  const schema: Schema = {
+    username: Joi.string().required(),
+    password: Joi.string().min(8).max(24).required(),
+    contact: Joi.object(contactJoiSchema).required(),
+    name: Joi.string().max(156).required(),
+    cnpj: Joi.string().length(14).required(),
+    address: Joi.object(addressJoiSchema).required(),
+    confirmedAt: Joi.valid(null).optional().default(null)
+  };
   const validate = Joi.object(schema).validate(request.body, {
     abortEarly: false
   });
@@ -34,7 +31,7 @@ export const createSchool = async (
 
   const createSchoolService = container.resolve(CreateSchoolService);
 
-  const school = await createSchoolService.execute(request.body);
+  const school = await createSchoolService.execute(validate.value);
 
   return response.status(201).json(school);
 };

@@ -34,7 +34,8 @@ export default class CreateStudentService {
       cpf,
       name,
       contact,
-      birth: date.convertBrazilianStringDateToUTC(String(birth))
+      birth: date.convertBrazilianStringDateToUTC(String(birth)),
+      confirmedAt
     });
 
     return teacher;

@@ -26,7 +26,7 @@ export default class Account {
   address: Address;
 
   @Column()
-  confirmedAt?: Date;
+  confirmedAt: Date | null;
 
   @CreateDateColumn()
   createdAt: Date;

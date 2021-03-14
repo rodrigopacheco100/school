@@ -20,7 +20,8 @@ export default class CreateTeacherService {
     name,
     password,
     username,
-    birth
+    birth,
+    confirmedAt
   }: CreateTeacherDTO): Promise<Teacher> {
     if (!CPF.isValid(cpf)) throw new AppError('CPF não é válido');
 
@@ -50,7 +51,8 @@ export default class CreateTeacherService {
           finishDate: date.convertBrazilianStringDateToUTC(String(finishDate))
         };
       }),
-      birth: date.convertBrazilianStringDateToUTC(String(birth))
+      birth: date.convertBrazilianStringDateToUTC(String(birth)),
+      confirmedAt
     });
 
     return teacher;
