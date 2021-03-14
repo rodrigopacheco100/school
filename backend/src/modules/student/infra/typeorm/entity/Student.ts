@@ -1,6 +1,7 @@
 import Account from '@shared/infra/typeorm/entity/Account';
 import { AccountType } from '@shared/types/enums';
 import { Column, Entity } from 'typeorm';
+import Parent from './Parent';
 
 @Entity('Account')
 export default class Student extends Account {
@@ -9,6 +10,9 @@ export default class Student extends Account {
 
   @Column()
   cpf: string | null;
+
+  @Column()
+  parents: Parent[];
 
   @Column()
   type: AccountType.Student;
