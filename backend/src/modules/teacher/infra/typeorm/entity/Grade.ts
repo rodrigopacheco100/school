@@ -26,7 +26,9 @@ type Schema = {
 export const gradeJoiSchema: Schema = {
   educationalInstitution: Joi.string().required(),
   course: Joi.string().required(),
-  type: Joi.string().valid(...Object.keys(GradeType)),
+  type: Joi.string()
+    .valid(...Object.values(GradeType))
+    .required(),
   startDate: Joi.string().required(),
   finishDate: Joi.string().required()
 };
