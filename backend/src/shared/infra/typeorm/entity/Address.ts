@@ -10,7 +10,7 @@ export default class Address {
   number: number;
 
   @Column()
-  CEP: string;
+  cep: string;
 
   @Column()
   complement?: string;
@@ -35,7 +35,7 @@ export const addressJoiSchema: Schema = {
   complement: Joi.string().optional(),
   city: Joi.string().required(),
   neighborhood: Joi.string().required(),
-  CEP: Joi.string().length(9),
+  cep: Joi.string().length(9),
   state: Joi.string()
     .valid(...Object.values(State))
     .required()
