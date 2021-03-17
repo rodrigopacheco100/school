@@ -2,7 +2,7 @@ import CreateStudentDTO from '@modules/student/dtos/CreateStudentDTO';
 import Student from '@modules/student/infra/typeorm/entity/Student';
 import { AccountType } from '@shared/types/enums';
 
-import { ObjectID } from 'typeorm';
+import { ObjectID } from 'mongodb';
 import IStudentRepository from '../IStudentRepository';
 
 export default class FakeStudentRepository implements IStudentRepository {
