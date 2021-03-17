@@ -2,7 +2,7 @@ import CreateTeacherDTO from '@modules/teacher/dtos/CreateTeacherDTO';
 import Teacher from '@modules/teacher/infra/typeorm/entity/Teacher';
 import { AccountType } from '@shared/types/enums';
 
-import { ObjectID } from 'typeorm';
+import { ObjectID } from 'mongodb';
 import ITeacherRepository from '../ITeacherRepository';
 
 export default class FakeTeacherRepository implements ITeacherRepository {
