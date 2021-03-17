@@ -3,7 +3,7 @@ import { AccountType } from '@shared/types/enums';
 import { Column, Entity } from 'typeorm';
 import Parent from './Parent';
 
-@Entity('Account')
+@Entity('Student')
 export default class Student extends Account {
   @Column()
   birth: Date;
