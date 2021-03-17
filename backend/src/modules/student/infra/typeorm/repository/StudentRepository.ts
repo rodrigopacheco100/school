@@ -1,7 +1,9 @@
 import CreateStudentDTO from '@modules/student/dtos/CreateStudentDTO';
 import IStudentRepository from '@modules/student/repository/IStudentRepository';
 import { AccountType } from '@shared/types/enums';
-import { getMongoRepository, ObjectID } from 'typeorm';
+import { ObjectID } from 'mongodb';
+import { getMongoRepository } from 'typeorm';
+
 import Student from '../entity/Student';
 
 export default class StudentRepository implements IStudentRepository {

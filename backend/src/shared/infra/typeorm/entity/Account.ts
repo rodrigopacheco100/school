@@ -1,7 +1,8 @@
 import Address from '@shared/infra/typeorm/entity/Address';
 import Contact from '@shared/infra/typeorm/entity/Contact';
 import { AccountType } from '@shared/types/enums';
-import { Column, CreateDateColumn, ObjectIdColumn, UpdateDateColumn, ObjectID } from 'typeorm';
+import { ObjectID } from 'mongodb';
+import { Column, CreateDateColumn, ObjectIdColumn, UpdateDateColumn } from 'typeorm';
 
 export default class Account {
   @ObjectIdColumn()

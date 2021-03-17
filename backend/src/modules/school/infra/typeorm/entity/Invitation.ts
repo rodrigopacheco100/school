@@ -1,4 +1,5 @@
-import { Entity, ObjectID, ObjectIdColumn } from 'typeorm';
+import { ObjectID } from 'mongodb';
+import { Entity, ObjectIdColumn } from 'typeorm';
 
 @Entity('Invitation')
 export default class Invitation {

@@ -1,7 +1,8 @@
 import CreateTeacherDTO from '@modules/teacher/dtos/CreateTeacherDTO';
 import ITeacherRepository from '@modules/teacher/repository/ITeacherRepository';
 import { AccountType } from '@shared/types/enums';
-import { getMongoRepository, ObjectID } from 'typeorm';
+import { ObjectID } from 'mongodb';
+import { getMongoRepository } from 'typeorm';
 import Teacher from '../entity/Teacher';
 
 export default class TeacherRepository implements ITeacherRepository {

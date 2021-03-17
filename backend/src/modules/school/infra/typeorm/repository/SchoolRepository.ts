@@ -1,7 +1,9 @@
 import CreateSchoolDTO from '@modules/school/dtos/CreateSchoolDTO';
 import ISchoolRepository from '@modules/school/repository/ISchoolRepository';
 import { AccountType } from '@shared/types/enums';
-import { getMongoRepository, ObjectID } from 'typeorm';
+import { ObjectID } from 'mongodb';
+import { getMongoRepository } from 'typeorm';
+
 import School from '../entity/School';
 
 export default class SchoolRepository implements ISchoolRepository {
