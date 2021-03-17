@@ -3,7 +3,7 @@ import School from '@modules/school/infra/typeorm/entity/School';
 import ISchoolRepository from '@modules/school/repository/ISchoolRepository';
 import { AccountType } from '@shared/types/enums';
 
-import { ObjectID } from 'typeorm';
+import { ObjectID } from 'mongodb';
 
 export default class FakeSchoolRepository implements ISchoolRepository {
   schools: School[] = [];
