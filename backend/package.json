@@ -5,7 +5,8 @@
   "author": "Rodrigo Pacheco",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only src/index.ts",
+    "dev": "yarn docker-up && ts-node-dev -r tsconfig-paths/register --inspect --transpile-only src/index.ts",
+    "docker-up": "docker-compose up -d",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "jest",
     "tsc-check": "tsc --noEmit --skipLibCheck -p ."
