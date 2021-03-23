@@ -1,5 +1,5 @@
 import AppError from '@shared/infra/http/error/AppError';
-import { CNPJ } from '@shared/utils';
+import { CNPJ, crypto } from '@shared/utils';
 import { inject, injectable } from 'tsyringe';
 import ISchoolRepository from '../repository/ISchoolRepository';
 import School from '../infra/typeorm/entity/School';
@@ -30,7 +30,7 @@ export default class CreateSchoolService {
       cnpj,
       name,
       contact,
-      password,
+      password: await crypto.encrypt(password),
       username,
       confirmedAt
     });
