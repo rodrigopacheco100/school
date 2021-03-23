@@ -2,6 +2,7 @@ import CreateSchoolDTO from '@modules/school/dtos/CreateSchoolDTO';
 import School from '@modules/school/infra/typeorm/entity/School';
 import ISchoolRepository from '@modules/school/repository/ISchoolRepository';
 import { AccountType } from '@shared/types/enums';
+import { RecursivePartial } from '@shared/types/utilTypes';
 
 import { ObjectID } from 'mongodb';
 
@@ -36,5 +37,11 @@ export default class FakeSchoolRepository implements ISchoolRepository {
 
   async findByCNPJ(cpnj: string): Promise<School> {
     return this.schools.find(school => school.cnpj === cpnj);
+  }
+
+  async update(id: string, data: RecursivePartial<School>): Promise<School> {
+    const school = this.schools.find(school => school._id === new ObjectID(id));
+    Object.assign(school, { ...data });
+    return school;
   }
 }

@@ -1,3 +1,4 @@
+import { RecursivePartial } from '@shared/types/utilTypes';
 import CreateSchoolDTO from '../dtos/CreateSchoolDTO';
 import School from '../infra/typeorm/entity/School';
 
@@ -7,4 +8,5 @@ export default interface ISchoolRepository {
   findByEmail: (email: string) => Promise<School>;
   findByUsername: (username: string) => Promise<School>;
   findByCNPJ: (cnpj: string) => Promise<School>;
+  update: (id: string, data: RecursivePartial<School>) => Promise<School>;
 }
