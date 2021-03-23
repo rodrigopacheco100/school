@@ -35,7 +35,7 @@ export const addressJoiSchema: Schema = {
   complement: Joi.string().optional(),
   city: Joi.string().required(),
   neighborhood: Joi.string().required(),
-  cep: Joi.string().length(9),
+  cep: Joi.string().length(9).regex(new RegExp('[0-9]{5}[-]{1}[0-9]{3}')),
   state: Joi.string()
     .valid(...Object.values(State))
     .required()
