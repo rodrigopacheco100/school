@@ -44,7 +44,7 @@ export default class SchoolRepository implements ISchoolRepository {
 
   async update(id: string, data: RecursivePartial<School>): Promise<School> {
     const schoolRepository = getMongoRepository(School);
-    const school = await schoolRepository.findOne(id);
+    const school = await this.findById(id);
     Object.assign(school, { ...data });
     await schoolRepository.save(school);
 

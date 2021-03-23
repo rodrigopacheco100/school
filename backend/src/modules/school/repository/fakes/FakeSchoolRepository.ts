@@ -24,7 +24,7 @@ export default class FakeSchoolRepository implements ISchoolRepository {
   }
 
   async findById(id: string): Promise<School> {
-    return this.schools.find(school => school._id === new ObjectID(id));
+    return this.schools.find(school => ObjectID.createFromHexString(id).equals(school._id));
   }
 
   async findByUsername(username: string): Promise<School> {
@@ -40,7 +40,7 @@ export default class FakeSchoolRepository implements ISchoolRepository {
   }
 
   async update(id: string, data: RecursivePartial<School>): Promise<School> {
-    const school = this.schools.find(school => school._id === new ObjectID(id));
+    const school = await this.findById(id);
     Object.assign(school, { ...data });
     return school;
   }
