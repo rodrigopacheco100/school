@@ -12,13 +12,13 @@ export default class CreateSchoolService {
     private schoolRepository: ISchoolRepository
   ) {}
 
-  async execute({ address, cnpj, name, password, username, contact, confirmedAt }: CreateSchoolDTO): Promise<School> {
-    if (!CNPJ.isValid(cnpj)) throw new AppError('CNPJ não é válido');
+  async execute({ password, ...params }: CreateSchoolDTO): Promise<School> {
+    if (!CNPJ.isValid(params.cnpj)) throw new AppError('CNPJ não é válido');
 
     const [schoolByCNPJ, schoolByUsername, schoolByEmail] = await Promise.all([
-      this.schoolRepository.findByCNPJ(cnpj),
-      this.schoolRepository.findByUsername(username),
-      this.schoolRepository.findByEmail(contact.email)
+      this.schoolRepository.findByCNPJ(params.cnpj),
+      this.schoolRepository.findByUsername(params.username),
+      this.schoolRepository.findByEmail(params.contact.email)
     ]);
 
     if (schoolByCNPJ) throw new AppError('CNPJ já está sendo utilizado');
@@ -26,13 +26,8 @@ export default class CreateSchoolService {
     if (schoolByEmail) throw new AppError('E-mail já está sendo utilizado');
 
     const school = await this.schoolRepository.create({
-      address,
-      cnpj,
-      name,
-      contact,
-      password: await crypto.encrypt(password),
-      username,
-      confirmedAt
+      ...params,
+      password: await crypto.encrypt(password)
     });
 
     return school;
