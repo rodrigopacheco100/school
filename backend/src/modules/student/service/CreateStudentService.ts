@@ -12,46 +12,35 @@ export default class CreateStudentService {
     private studentRepository: IStudentRepository
   ) {}
 
-  async execute({
-    address,
-    contact,
-    cpf,
-    name,
-    password,
-    username,
-    birth,
-    parents,
-    confirmedAt
-  }: CreateStudentDTO): Promise<Student> {
-    if (cpf) {
-      if (!CPF.isValid(cpf)) throw new AppError('CPF não é válido');
-      const studentByCPF = this.studentRepository.findByCPF(cpf);
+  async execute(params: CreateStudentDTO): Promise<Student> {
+    if (params.cpf) {
+      if (!CPF.isValid(params.cpf)) throw new AppError('CPF não é válido');
+      const studentByCPF = await this.studentRepository.findByCPF(params.cpf);
       if (studentByCPF) throw new AppError('CPF já está sendo utilizado');
     }
 
+    params.parents.forEach(parent => {
+      if (!CPF.isValid(parent.cpf)) throw new AppError(`CPF de ${parent.name} não é válido`);
+    });
+
     const [studentByUsername, studentByEmail] = await Promise.all([
-      this.studentRepository.findByUsername(username),
-      this.studentRepository.findByEmail(contact.email)
+      this.studentRepository.findByUsername(params.username),
+      this.studentRepository.findByEmail(params.contact.email)
     ]);
 
     if (studentByUsername) throw new AppError('Usuário já está sendo utilizado');
     if (studentByEmail) throw new AppError('E-mail já está sendo utilizado');
 
     const teacher = await this.studentRepository.create({
-      username,
-      password: await crypto.encrypt(password),
-      address,
-      cpf,
-      name,
-      contact,
-      parents: parents.map(parent => ({
-        name: parent.name,
-        cpf: parent.cpf,
-        birth: date.convertBrazilianStringDateToUTC(String(parent.birth)),
-        contact: parent.contact
+      ...params,
+      password: await crypto.encrypt(params.password),
+      parents: params.parents.map(({ birth, contact, cpf, name }) => ({
+        name,
+        cpf,
+        birth: date.convertBrazilianStringDateToUTC(String(birth)),
+        contact
       })),
-      birth: date.convertBrazilianStringDateToUTC(String(birth)),
-      confirmedAt
+      birth: date.convertBrazilianStringDateToUTC(String(params.birth))
     });
 
     return teacher;
