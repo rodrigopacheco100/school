@@ -10,7 +10,7 @@ export const confirmSchool = async (request: Request, response: Response): Promi
 
   const confirmSchoolService = container.resolve(ConfirmSchoolService);
 
-  const school = await confirmSchoolService.execute(String(id));
+  const school = await confirmSchoolService.execute(id);
 
   return response.status(200).json(school);
 };
