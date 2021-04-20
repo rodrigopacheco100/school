@@ -13,7 +13,7 @@ export default class CreateTeacherService {
   ) {}
 
   async execute({ grades, password, birth, ...params }: CreateTeacherDTO): Promise<Teacher> {
-    if (!CPF.isValid(params.cpf)) throw new AppError('CPF não é válido');
+    if (!CPF.isValid(params.cpf)) throw new AppError('CPF is not valid');
 
     const [teacherByCPF, teacherByUsername, teacherByEmail] = await Promise.all([
       this.teacherRepository.findByCPF(params.cpf),
@@ -21,9 +21,9 @@ export default class CreateTeacherService {
       this.teacherRepository.findByEmail(params.contact.email)
     ]);
 
-    if (teacherByCPF) throw new AppError('CPF já está sendo utilizado');
-    if (teacherByUsername) throw new AppError('Usuário já está sendo utilizado');
-    if (teacherByEmail) throw new AppError('E-mail já está sendo utilizado');
+    if (teacherByCPF) throw new AppError('CPF already used');
+    if (teacherByUsername) throw new AppError('Username already used');
+    if (teacherByEmail) throw new AppError('Email already used');
 
     const teacher = await this.teacherRepository.create({
       ...params,

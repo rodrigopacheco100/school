@@ -14,9 +14,9 @@ export default class CreateStudentService {
 
   async execute({ password, parents, birth, ...params }: CreateStudentDTO): Promise<Student> {
     if (params.cpf) {
-      if (!CPF.isValid(params.cpf)) throw new AppError('CPF não é válido');
+      if (!CPF.isValid(params.cpf)) throw new AppError('CPF is not valid');
       const studentByCPF = await this.studentRepository.findByCPF(params.cpf);
-      if (studentByCPF) throw new AppError('CPF já está sendo utilizado');
+      if (studentByCPF) throw new AppError('CPF already used');
     }
 
     parents.forEach(parent => {
@@ -28,8 +28,8 @@ export default class CreateStudentService {
       this.studentRepository.findByEmail(params.contact.email)
     ]);
 
-    if (studentByUsername) throw new AppError('Usuário já está sendo utilizado');
-    if (studentByEmail) throw new AppError('E-mail já está sendo utilizado');
+    if (studentByUsername) throw new AppError('Username already used');
+    if (studentByEmail) throw new AppError('Email already used');
 
     const teacher = await this.studentRepository.create({
       ...params,
