@@ -12,23 +12,13 @@ export default class CreateTeacherService {
     private teacherRepository: ITeacherRepository
   ) {}
 
-  async execute({
-    address,
-    contact,
-    cpf,
-    grades,
-    name,
-    password,
-    username,
-    birth,
-    confirmedAt
-  }: CreateTeacherDTO): Promise<Teacher> {
-    if (!CPF.isValid(cpf)) throw new AppError('CPF não é válido');
+  async execute({ grades, password, birth, ...params }: CreateTeacherDTO): Promise<Teacher> {
+    if (!CPF.isValid(params.cpf)) throw new AppError('CPF não é válido');
 
     const [teacherByCPF, teacherByUsername, teacherByEmail] = await Promise.all([
-      this.teacherRepository.findByCPF(cpf),
-      this.teacherRepository.findByUsername(username),
-      this.teacherRepository.findByEmail(contact.email)
+      this.teacherRepository.findByCPF(params.cpf),
+      this.teacherRepository.findByUsername(params.username),
+      this.teacherRepository.findByEmail(params.contact.email)
     ]);
 
     if (teacherByCPF) throw new AppError('CPF já está sendo utilizado');
@@ -36,12 +26,8 @@ export default class CreateTeacherService {
     if (teacherByEmail) throw new AppError('E-mail já está sendo utilizado');
 
     const teacher = await this.teacherRepository.create({
-      username,
+      ...params,
       password: await crypto.encrypt(password),
-      address,
-      cpf,
-      name,
-      contact,
       grades: grades.map(({ course, educationalInstitution, type, finishDate, startDate }) => {
         return {
           educationalInstitution,
@@ -51,8 +37,7 @@ export default class CreateTeacherService {
           finishDate: date.convertBrazilianStringDateToUTC(String(finishDate))
         };
       }),
-      birth: date.convertBrazilianStringDateToUTC(String(birth)),
-      confirmedAt
+      birth: date.convertBrazilianStringDateToUTC(String(birth))
     });
 
     return teacher;

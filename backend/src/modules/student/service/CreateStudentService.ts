@@ -12,14 +12,14 @@ export default class CreateStudentService {
     private studentRepository: IStudentRepository
   ) {}
 
-  async execute(params: CreateStudentDTO): Promise<Student> {
+  async execute({ password, parents, birth, ...params }: CreateStudentDTO): Promise<Student> {
     if (params.cpf) {
       if (!CPF.isValid(params.cpf)) throw new AppError('CPF não é válido');
       const studentByCPF = await this.studentRepository.findByCPF(params.cpf);
       if (studentByCPF) throw new AppError('CPF já está sendo utilizado');
     }
 
-    params.parents.forEach(parent => {
+    parents.forEach(parent => {
       if (!CPF.isValid(parent.cpf)) throw new AppError(`CPF de ${parent.name} não é válido`);
     });
 
@@ -33,14 +33,14 @@ export default class CreateStudentService {
 
     const teacher = await this.studentRepository.create({
       ...params,
-      password: await crypto.encrypt(params.password),
-      parents: params.parents.map(({ birth, contact, cpf, name }) => ({
+      password: await crypto.encrypt(password),
+      parents: parents.map(({ birth, contact, cpf, name }) => ({
         name,
         cpf,
         birth: date.convertBrazilianStringDateToUTC(String(birth)),
         contact
       })),
-      birth: date.convertBrazilianStringDateToUTC(String(params.birth))
+      birth: date.convertBrazilianStringDateToUTC(String(birth))
     });
 
     return teacher;
