@@ -1,6 +1,6 @@
 import AppError from '@shared/infra/http/error/AppError';
 import { inject, injectable } from 'tsyringe';
-import { CPF, crypto, date } from '@shared/utils';
+import { CPF, crypto } from '@shared/utils';
 import Teacher from '../infra/typeorm/entity/Teacher';
 import ITeacherRepository from '../repository/ITeacherRepository';
 import CreateTeacherDTO from '../dtos/CreateTeacherDTO';
@@ -12,7 +12,7 @@ export default class CreateTeacherService {
     private teacherRepository: ITeacherRepository
   ) {}
 
-  async execute({ grades, password, birth, ...params }: CreateTeacherDTO): Promise<Teacher> {
+  async execute({ password, ...params }: CreateTeacherDTO): Promise<Teacher> {
     if (!CPF.isValid(params.cpf)) throw new AppError('CPF is not valid');
 
     const [teacherByCPF, teacherByUsername, teacherByEmail] = await Promise.all([
@@ -27,17 +27,7 @@ export default class CreateTeacherService {
 
     const teacher = await this.teacherRepository.create({
       ...params,
-      password: await crypto.encrypt(password),
-      grades: grades.map(({ course, educationalInstitution, type, finishDate, startDate }) => {
-        return {
-          educationalInstitution,
-          course,
-          type,
-          startDate: date.convertBrazilianStringDateToUTC(String(startDate)),
-          finishDate: date.convertBrazilianStringDateToUTC(String(finishDate))
-        };
-      }),
-      birth: date.convertBrazilianStringDateToUTC(String(birth))
+      password: await crypto.encrypt(password)
     });
 
     return teacher;

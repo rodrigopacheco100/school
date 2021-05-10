@@ -16,7 +16,7 @@ export default class Grade {
   startDate: Date;
 
   @Column()
-  finishDate: Date;
+  finishDate: Date | null;
 }
 
 type Schema = {
@@ -29,6 +29,6 @@ export const gradeJoiSchema: Schema = {
   type: Joi.string()
     .valid(...Object.values(GradeType))
     .required(),
-  startDate: Joi.string().required(),
-  finishDate: Joi.string().required()
+  startDate: Joi.date().iso().less('now').required(),
+  finishDate: Joi.date().iso().greater(Joi.ref('startDate')).allow(null).default(null).optional()
 };

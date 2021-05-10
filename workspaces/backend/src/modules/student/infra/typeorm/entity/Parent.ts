@@ -23,6 +23,6 @@ type Schema = {
 export const parentJoiSchema: Schema = {
   name: Joi.string().required(),
   cpf: Joi.string().length(11).required(),
-  birth: Joi.string().regex(new RegExp('[0-9]{2}[-|/]{1}[0-9]{2}[-|/]{1}[0-9]{4}')).required(),
+  birth: Joi.date().iso().less('now').required(),
   contact: Joi.object(contactJoiSchema).required()
 };
