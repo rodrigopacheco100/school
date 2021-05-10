@@ -1,0 +1,16 @@
+{
+  "name": "school",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/rodrigopacheco100/school.git",
+  "author": "Rodrigo Pacheco <rodrigopacheco100@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "workspaces/*"
+  ],
+  "scripts": {
+    "backend": "yarn workspace backend",
+    "web": "yarn workspace web"
+  }
+}
