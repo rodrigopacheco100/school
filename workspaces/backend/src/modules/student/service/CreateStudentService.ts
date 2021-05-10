@@ -33,6 +33,7 @@ export default class CreateStudentService {
 
     const teacher = await this.studentRepository.create({
       ...params,
+
       password: await crypto.encrypt(password),
       parents: parents.map(({ birth, contact, cpf, name }) => ({
         name,

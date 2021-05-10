@@ -8,10 +8,11 @@ import ITeacherRepository from '../ITeacherRepository';
 export default class FakeTeacherRepository implements ITeacherRepository {
   teachers: Teacher[] = [];
 
-  async create({ ...rest }: CreateTeacherDTO): Promise<Teacher> {
+  async create({ schoolId, ...rest }: CreateTeacherDTO): Promise<Teacher> {
     const teacher: Teacher = {
       _id: new ObjectID(),
       ...rest,
+      schoolId: new ObjectID(schoolId),
       type: AccountType.Teacher,
       createdAt: new Date(),
       updatedAt: new Date()

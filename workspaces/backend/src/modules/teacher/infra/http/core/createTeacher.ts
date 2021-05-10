@@ -18,6 +18,7 @@ export const createTeacher = async (request: Request, response: Response): Promi
   const schema: Schema = {
     username: Joi.string().required(),
     password: Joi.string().min(8).max(24).required(),
+    schoolId: Joi.string().hex().length(24).required(),
     contact: Joi.object(contactJoiSchema).required(),
     name: Joi.string().max(156).required(),
     birth: Joi.string().regex(new RegExp('[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{4}')).required(),
@@ -34,7 +35,7 @@ export const createTeacher = async (request: Request, response: Response): Promi
 
   const createTeacherService = container.resolve(CreateTeacherService);
 
-  const school = await createTeacherService.execute(request.body);
+  const school = await createTeacherService.execute(validate.value);
 
   return response.status(201).json(school);
 };

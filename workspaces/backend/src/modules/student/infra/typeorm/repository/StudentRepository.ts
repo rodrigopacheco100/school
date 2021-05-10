@@ -7,10 +7,11 @@ import { getMongoRepository } from 'typeorm';
 import Student from '../entity/Student';
 
 export default class StudentRepository implements IStudentRepository {
-  async create(params: CreateStudentDTO): Promise<Student> {
+  async create({ schoolId, ...params }: CreateStudentDTO): Promise<Student> {
     const studentRepository = getMongoRepository(Student);
     const student = studentRepository.create({
       ...params,
+      schoolId: new ObjectID(schoolId),
       type: AccountType.Student
     });
     await studentRepository.save(student);

@@ -8,9 +8,10 @@ import IStudentRepository from '../IStudentRepository';
 export default class FakeStudentRepository implements IStudentRepository {
   students: Student[] = [];
 
-  async create({ ...rest }: CreateStudentDTO): Promise<Student> {
+  async create({ schoolId, ...rest }: CreateStudentDTO): Promise<Student> {
     const student: Student = {
       _id: new ObjectID(),
+      schoolId: new ObjectID(schoolId),
       ...rest,
       type: AccountType.Student,
       createdAt: new Date(),

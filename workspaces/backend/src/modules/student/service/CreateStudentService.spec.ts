@@ -2,6 +2,9 @@ import 'reflect-metadata';
 import { State } from '@shared/types/enums';
 import AppError from '@shared/infra/http/error/AppError';
 import { date } from '@shared/utils';
+import School from '@modules/school/infra/typeorm/entity/School';
+import CreateSchoolService from '@modules/school/service/CreateSchoolService';
+import FakeSchoolRepository from '@modules/school/repository/fakes/FakeSchoolRepository';
 import CreateStudentService from './CreateStudentService';
 import FakeStudentRepository from '../repository/fakes/FakeStudentRepository';
 import IStudentRepository from '../repository/IStudentRepository';
@@ -9,6 +12,28 @@ import IStudentRepository from '../repository/IStudentRepository';
 describe('CreateStudent', () => {
   let studentRepository: IStudentRepository;
   let createStudentService: CreateStudentService;
+  let school: School;
+
+  beforeAll(async () => {
+    school = await new CreateSchoolService(new FakeSchoolRepository()).execute({
+      username: 'johndoe',
+      password: 'password',
+      name: 'John Doe',
+      cnpj: '95983747000113',
+      confirmedAt: null,
+      contact: {
+        email: 'johndoe@email.com'
+      },
+      address: {
+        cep: '99999-000',
+        city: 'Cidade',
+        neighborhood: 'Bairro',
+        number: 123,
+        state: State.Distrito_Federal,
+        street: 'Rua'
+      }
+    });
+  });
 
   beforeEach(() => {
     studentRepository = new FakeStudentRepository();
@@ -19,6 +44,7 @@ describe('CreateStudent', () => {
     const student = await createStudentService.execute({
       username: 'johndoe',
       password: 'password',
+      schoolId: school._id.toHexString(),
       name: 'John Doe',
       cpf: '64249678008',
       birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
@@ -54,6 +80,7 @@ describe('CreateStudent', () => {
     const student = await createStudentService.execute({
       username: 'johndoe',
       password: 'password',
+      schoolId: school._id.toHexString(),
       name: 'John Doe',
       cpf: null,
       birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
@@ -90,6 +117,7 @@ describe('CreateStudent', () => {
       createStudentService.execute({
         username: 'johndoe',
         password: 'password',
+        schoolId: school._id.toHexString(),
         name: 'John Doe',
         cpf: '64249678012',
         birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
@@ -125,6 +153,7 @@ describe('CreateStudent', () => {
       createStudentService.execute({
         username: 'johndoe',
         password: 'password',
+        schoolId: school._id.toHexString(),
         name: 'John Doe',
         cpf: '64249678008',
         birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
@@ -159,6 +188,7 @@ describe('CreateStudent', () => {
     await createStudentService.execute({
       username: 'johndoe',
       password: 'password',
+      schoolId: school._id.toHexString(),
       name: 'John Doe',
       cpf: '64249678008',
       birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
@@ -191,6 +221,7 @@ describe('CreateStudent', () => {
       createStudentService.execute({
         username: 'johndoe',
         password: 'password',
+        schoolId: school._id.toHexString(),
         name: 'John Doe',
         cpf: '64249678008',
         birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
@@ -225,6 +256,7 @@ describe('CreateStudent', () => {
     await createStudentService.execute({
       username: 'johndoe',
       password: 'password',
+      schoolId: school._id.toHexString(),
       name: 'John Doe',
       cpf: '64249678008',
       birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
@@ -257,6 +289,7 @@ describe('CreateStudent', () => {
       createStudentService.execute({
         username: 'johndoe',
         password: 'password',
+        schoolId: school._id.toHexString(),
         name: 'John Doe',
         cpf: '48368660068',
         birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
@@ -291,6 +324,7 @@ describe('CreateStudent', () => {
     await createStudentService.execute({
       username: 'johndoe2',
       password: 'password',
+      schoolId: school._id.toHexString(),
       name: 'John Doe',
       cpf: '64249678008',
       birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
@@ -323,6 +357,7 @@ describe('CreateStudent', () => {
       createStudentService.execute({
         username: 'johndoe',
         password: 'password',
+        schoolId: school._id.toHexString(),
         name: 'John Doe',
         cpf: '48368660068',
         birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
