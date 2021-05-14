@@ -13,8 +13,7 @@ import routes from './routes';
 export default async (): Promise<Application> => {
   const app = express();
 
-  let connection: Connection = null;
-  if (process.env.NODE_ENV !== 'TEST') connection = await connectDB();
+  if (process.env.NODE_ENV !== 'TEST') await connectDB();
 
   containers();
 
@@ -23,8 +22,6 @@ export default async (): Promise<Application> => {
 
   app.use(routes);
   app.use(errorHandler);
-
-  if (process.env.NODE_ENV === 'TEST' || connection) app.listen(3333, () => console.log('Server is running'));
 
   return app;
 };
