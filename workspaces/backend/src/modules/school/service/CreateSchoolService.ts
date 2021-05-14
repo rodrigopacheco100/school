@@ -22,7 +22,7 @@ export default class CreateSchoolService {
     ]);
 
     if (schoolByCNPJ) throw new AppError('CNPJ already used');
-    if (schoolByUsername) throw new AppError('Usuário  already used');
+    if (schoolByUsername) throw new AppError('Username already used');
     if (schoolByEmail) throw new AppError('Email already used');
 
     const school = await this.schoolRepository.create({
