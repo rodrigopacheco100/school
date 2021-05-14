@@ -40,13 +40,13 @@ describe('ConfirmSchool', () => {
 
     expect(school.confirmedAt).toBe(null);
 
-    const confirmedSchool = await confirmSchoolService.execute(school._id.toHexString());
+    const confirmedSchool = await confirmSchoolService.execute({ _id: school._id.toHexString() });
 
     expect(confirmedSchool.confirmedAt).toBeInstanceOf(Date);
   });
 
   it('should not confirm a school that does not exist', async () => {
-    await expect(confirmSchoolService.execute(new ObjectID().toHexString())).rejects.toBeInstanceOf(AppError);
+    await expect(confirmSchoolService.execute({ _id: new ObjectID().toHexString() })).rejects.toBeInstanceOf(AppError);
   });
 
   it('should not confirm a school twice', async () => {
@@ -70,8 +70,8 @@ describe('ConfirmSchool', () => {
     });
 
     expect(school.confirmedAt).toBe(null);
-    const confirmedSchool = await confirmSchoolService.execute(school._id.toHexString());
+    const confirmedSchool = await confirmSchoolService.execute({ _id: school._id.toHexString() });
     expect(confirmedSchool.confirmedAt).toBeInstanceOf(Date);
-    await expect(confirmSchoolService.execute(school._id.toHexString())).rejects.toBeInstanceOf(AppError);
+    await expect(confirmSchoolService.execute({ _id: school._id.toHexString() })).rejects.toBeInstanceOf(AppError);
   });
 });

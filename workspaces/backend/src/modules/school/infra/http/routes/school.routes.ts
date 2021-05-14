@@ -4,6 +4,6 @@ import { confirmSchool, createSchool } from '../core';
 const routes = Router();
 
 routes.post('/createSchool', createSchool);
-routes.put('/confirmSchool/:id', confirmSchool);
+routes.put('/confirmSchool', confirmSchool);
 
 export default routes;
