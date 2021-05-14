@@ -15,16 +15,16 @@ import FakeStudentRepository from '@modules/student/repository/fakes/FakeStudent
 export default (): void => {
   container.registerSingleton<ISchoolRepository>(
     'SchoolRepository',
-    process.env.NODE_ENV !== 'TEST' ? FakeSchoolRepository : SchoolRepository
+    process.env.NODE_ENV === 'TEST' ? FakeSchoolRepository : SchoolRepository
   );
 
   container.registerSingleton<ITeacherRepository>(
     'TeacherRepository',
-    process.env.NODE_ENV !== 'TEST' ? FakeTeacherRepository : TeacherRepository
+    process.env.NODE_ENV === 'TEST' ? FakeTeacherRepository : TeacherRepository
   );
 
   container.registerSingleton<IStudentRepository>(
     'StudentRepository',
-    process.env.NODE_ENV !== 'TEST' ? FakeStudentRepository : StudentRepository
+    process.env.NODE_ENV === 'TEST' ? FakeStudentRepository : StudentRepository
   );
 };
