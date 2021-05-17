@@ -1,5 +1,6 @@
-import withImages from 'next-images'
+/* eslint-disable @typescript-eslint/no-var-requires */
+const withImages = require('next-images')
 
-export default withImages({
+module.exports = withImages({
   esModule: true
 })
