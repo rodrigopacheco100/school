@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 import RocketseatLogo from '../assets/rocketseat.svg'
 
-import { Container } from '../styles/pages/Home'
+import { Container } from './_styles'
 
 const Home: React.FC = () => {
   return (
