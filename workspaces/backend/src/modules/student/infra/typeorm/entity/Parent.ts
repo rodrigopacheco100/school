@@ -1,4 +1,3 @@
-import Contact, { contactJoiSchema } from '@shared/infra/typeorm/entity/Contact';
 import Joi from 'joi';
 import { Column } from 'typeorm';
 
@@ -13,7 +12,7 @@ export default class Parent {
   birth: Date;
 
   @Column()
-  contact: Contact;
+  phones: string[];
 }
 
 type Schema = {
@@ -24,5 +23,5 @@ export const parentJoiSchema: Schema = {
   name: Joi.string().required(),
   cpf: Joi.string().length(11).required(),
   birth: Joi.date().iso().less('now').required(),
-  contact: Joi.object(contactJoiSchema).required()
+  phones: Joi.array().items(Joi.string()).required()
 };

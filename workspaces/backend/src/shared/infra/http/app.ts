@@ -2,7 +2,6 @@ import 'reflect-metadata';
 import express, { Application } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
-import { Connection } from 'typeorm';
 
 import connectDB from '@shared/infra/typeorm/connection';
 import containers from '@shared/container';

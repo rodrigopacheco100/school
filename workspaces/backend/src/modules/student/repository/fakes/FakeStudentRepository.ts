@@ -14,6 +14,7 @@ export default class FakeStudentRepository implements IStudentRepository {
       schoolId: new ObjectID(schoolId),
       ...rest,
       type: AccountType.Student,
+      confirmedAt: null,
       createdAt: new Date(),
       updatedAt: new Date()
     };
@@ -23,16 +24,12 @@ export default class FakeStudentRepository implements IStudentRepository {
     return student;
   }
 
-  async findByUsername(username: string): Promise<Student> {
-    return this.students.find(student => student.username === username);
-  }
-
   async findById(id: string): Promise<Student> {
     return this.students.find(student => student._id === new ObjectID(id));
   }
 
   async findByEmail(email: string): Promise<Student> {
-    return this.students.find(student => student.contact.email === email);
+    return this.students.find(student => student.email === email);
   }
 
   async findByCPF(cpf: string): Promise<Student> {

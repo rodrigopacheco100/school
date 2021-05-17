@@ -20,14 +20,10 @@ describe('ConfirmSchool', () => {
 
   it('should confirm a school', async () => {
     const school = await createSchoolService.execute({
-      username: 'johndoe',
+      email: 'johndoe@email.com',
       password: 'password',
       name: 'John Doe',
       cnpj: '95983747000113',
-      confirmedAt: null,
-      contact: {
-        email: 'johndoe@email.com'
-      },
       address: {
         cep: '99999-000',
         city: 'Cidade',
@@ -51,14 +47,10 @@ describe('ConfirmSchool', () => {
 
   it('should not confirm a school twice', async () => {
     const school = await createSchoolService.execute({
-      username: 'johndoe',
+      email: 'johndoe@email.com',
       password: 'password',
       name: 'John Doe',
       cnpj: '95983747000113',
-      confirmedAt: null,
-      contact: {
-        email: 'johndoe@email.com'
-      },
       address: {
         cep: '99999-000',
         city: 'Cidade',

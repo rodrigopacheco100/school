@@ -16,14 +16,10 @@ describe('CreateSchool', () => {
 
   it('should create a school', async () => {
     const school = await createSchoolService.execute({
-      username: 'johndoe',
       password: 'password',
       name: 'John Doe',
       cnpj: '95983747000113',
-      confirmedAt: null,
-      contact: {
-        email: 'johndoe@email.com'
-      },
+      email: 'johndoe@email.com',
       address: {
         cep: '99999-000',
         city: 'Cidade',
@@ -37,59 +33,13 @@ describe('CreateSchool', () => {
     expect(school).toHaveProperty('_id');
   });
 
-  it('should not create a school with same username', async () => {
-    await createSchoolService.execute({
-      username: 'johndoe',
-      password: 'password',
-      name: 'John Doe',
-      cnpj: '95983747000113',
-      confirmedAt: null,
-      contact: {
-        email: 'johndoe@email.com'
-      },
-      address: {
-        cep: '99999-000',
-        city: 'Cidade',
-        neighborhood: 'Bairro',
-        number: 123,
-        state: State.Distrito_Federal,
-        street: 'Rua'
-      }
-    });
-
-    await expect(
-      createSchoolService.execute({
-        username: 'johndoe',
-        password: 'password',
-        name: 'John Doe',
-        cnpj: '40042391000121',
-        confirmedAt: null,
-        contact: {
-          email: 'johndoe@email.com.br'
-        },
-        address: {
-          cep: '99999-000',
-          city: 'Cidade',
-          neighborhood: 'Bairro',
-          number: 123,
-          state: State.Distrito_Federal,
-          street: 'Rua'
-        }
-      })
-    ).rejects.toBeInstanceOf(AppError);
-  });
-
   it('should not create a school with invalid cnpj', async () => {
     await expect(
       createSchoolService.execute({
-        username: 'doejohn',
         password: 'password',
         name: 'John Doe',
         cnpj: '95983747009999',
-        confirmedAt: null,
-        contact: {
-          email: 'johndoe@email.com.br'
-        },
+        email: 'johndoe@email.com.br',
         address: {
           cep: '99999-000',
           city: 'Cidade',
@@ -104,14 +54,10 @@ describe('CreateSchool', () => {
 
   it('should not create a school with same cnpj', async () => {
     await createSchoolService.execute({
-      username: 'johndoe',
       password: 'password',
       name: 'John Doe',
       cnpj: '95983747000113',
-      confirmedAt: null,
-      contact: {
-        email: 'johndoe@email.com'
-      },
+      email: 'johndoe@email.com',
       address: {
         cep: '99999-000',
         city: 'Cidade',
@@ -124,14 +70,10 @@ describe('CreateSchool', () => {
 
     await expect(
       createSchoolService.execute({
-        username: 'doejohn',
         password: 'password',
         name: 'John Doe',
         cnpj: '95983747000113',
-        confirmedAt: null,
-        contact: {
-          email: 'johndoe@email.com.br'
-        },
+        email: 'johndoe@email.com.br',
         address: {
           cep: '99999-000',
           city: 'Cidade',
@@ -146,14 +88,10 @@ describe('CreateSchool', () => {
 
   it('should not create a school with same email', async () => {
     await createSchoolService.execute({
-      username: 'johndoe',
       password: 'password',
       name: 'John Doe',
       cnpj: '95983747000113',
-      confirmedAt: null,
-      contact: {
-        email: 'johndoe@email.com'
-      },
+      email: 'johndoe@email.com',
       address: {
         cep: '99999-000',
         city: 'Cidade',
@@ -166,14 +104,10 @@ describe('CreateSchool', () => {
 
     await expect(
       createSchoolService.execute({
-        username: 'doejohn',
         password: 'password',
         name: 'John Doe',
         cnpj: '40042391000121',
-        confirmedAt: null,
-        contact: {
-          email: 'johndoe@email.com'
-        },
+        email: 'johndoe@email.com',
         address: {
           cep: '99999-000',
           city: 'Cidade',

@@ -9,7 +9,7 @@ import School from '../entity/School';
 export default class SchoolRepository implements ISchoolRepository {
   async create(params: CreateSchoolDTO): Promise<School> {
     const schoolRepository = getMongoRepository(School);
-    const school = schoolRepository.create({ ...params, type: AccountType.School });
+    const school = schoolRepository.create({ ...params, type: AccountType.School, confirmedAt: null });
     await schoolRepository.save(school);
     return school;
   }
@@ -23,7 +23,7 @@ export default class SchoolRepository implements ISchoolRepository {
   async findByEmail(email: string): Promise<School> {
     const schoolRepository = getMongoRepository(School);
     const school = await schoolRepository.findOne({
-      where: { 'contact.email': email }
+      where: { email }
     });
     return school;
   }

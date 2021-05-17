@@ -14,6 +14,7 @@ export default class FakeSchoolRepository implements ISchoolRepository {
       _id: new ObjectID(),
       ...rest,
       type: AccountType.School,
+      confirmedAt: null,
       createdAt: new Date(),
       updatedAt: new Date()
     };
@@ -27,12 +28,8 @@ export default class FakeSchoolRepository implements ISchoolRepository {
     return this.schools.find(school => ObjectID.createFromHexString(id).equals(school._id));
   }
 
-  async findByUsername(username: string): Promise<School> {
-    return this.schools.find(school => school.username === username);
-  }
-
   async findByEmail(email: string): Promise<School> {
-    return this.schools.find(school => school.contact.email === email);
+    return this.schools.find(school => school.email === email);
   }
 
   async findByCNPJ(cpnj: string): Promise<School> {

@@ -15,14 +15,11 @@ describe('/school/createSchool', () => {
     const response = await request(application)
       .post('/school/createSchool')
       .send({
-        username: 'johndoe',
         password: 'password',
         name: 'John Doe',
         cnpj: '95983747000113',
         confirmedAt: null,
-        contact: {
-          email: 'johndoe@email.com'
-        },
+        email: 'johndoe@email.com',
         address: {
           cep: '99999-000',
           city: 'Cidade',

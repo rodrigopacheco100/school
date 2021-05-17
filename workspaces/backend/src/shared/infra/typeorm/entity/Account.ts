@@ -1,5 +1,4 @@
 import Address from '@shared/infra/typeorm/entity/Address';
-import Contact from '@shared/infra/typeorm/entity/Contact';
 import { AccountType } from '@shared/types/enums';
 import { ObjectID } from 'mongodb';
 import { Column, CreateDateColumn, ObjectIdColumn, UpdateDateColumn } from 'typeorm';
@@ -12,16 +11,13 @@ export default class Account {
   type: AccountType;
 
   @Column()
-  username: string;
-
-  @Column()
   password: string;
 
   @Column()
   name: string;
 
   @Column()
-  contact: Contact;
+  email: string;
 
   @Column()
   address: Address;

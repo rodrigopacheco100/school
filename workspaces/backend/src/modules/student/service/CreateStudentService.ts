@@ -23,12 +23,8 @@ export default class CreateStudentService {
       if (!CPF.isValid(parent.cpf)) throw new AppError(`CPF de ${parent.name} não é válido`);
     });
 
-    const [studentByUsername, studentByEmail] = await Promise.all([
-      this.studentRepository.findByUsername(params.username),
-      this.studentRepository.findByEmail(params.contact.email)
-    ]);
+    const studentByEmail = await this.studentRepository.findByEmail(params.email);
 
-    if (studentByUsername) throw new AppError('Username already used');
     if (studentByEmail) throw new AppError('Email already used');
 
     const teacher = await this.studentRepository.create({

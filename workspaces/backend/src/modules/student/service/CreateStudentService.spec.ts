@@ -16,14 +16,10 @@ describe('CreateStudent', () => {
 
   beforeAll(async () => {
     school = await new CreateSchoolService(new FakeSchoolRepository()).execute({
-      username: 'johndoe',
       password: 'password',
       name: 'John Doe',
       cnpj: '95983747000113',
-      confirmedAt: null,
-      contact: {
-        email: 'johndoe@email.com'
-      },
+      email: 'johndoe@email.com',
       address: {
         cep: '99999-000',
         city: 'Cidade',
@@ -42,7 +38,7 @@ describe('CreateStudent', () => {
 
   it('should create a student', async () => {
     const student = await createStudentService.execute({
-      username: 'johndoe',
+      email: 'johndoe@email.com',
       password: 'password',
       schoolId: school._id.toHexString(),
       name: 'John Doe',
@@ -53,16 +49,9 @@ describe('CreateStudent', () => {
           name: 'John Doe Mother',
           birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
           cpf: '48884199069',
-          contact: {
-            email: 'johndoemother@gmail.com',
-            phones: []
-          }
+          phones: ['85988779988']
         }
       ],
-      confirmedAt: null,
-      contact: {
-        email: 'johndoe@email.com'
-      },
       address: {
         cep: '99999-000',
         city: 'Cidade',
@@ -78,7 +67,7 @@ describe('CreateStudent', () => {
 
   it('should create a student without cpf', async () => {
     const student = await createStudentService.execute({
-      username: 'johndoe',
+      email: 'johndoe@email.com',
       password: 'password',
       schoolId: school._id.toHexString(),
       name: 'John Doe',
@@ -89,16 +78,9 @@ describe('CreateStudent', () => {
           name: 'John Doe Mother',
           birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
           cpf: '48884199069',
-          contact: {
-            email: 'johndoemother@gmail.com',
-            phones: []
-          }
+          phones: ['85988779988']
         }
       ],
-      confirmedAt: null,
-      contact: {
-        email: 'johndoe@email.com'
-      },
       address: {
         cep: '99999-000',
         city: 'Cidade',
@@ -115,7 +97,7 @@ describe('CreateStudent', () => {
   it('should not create a student with invalid cpf', async () => {
     await expect(
       createStudentService.execute({
-        username: 'johndoe',
+        email: 'johndoe@email.com',
         password: 'password',
         schoolId: school._id.toHexString(),
         name: 'John Doe',
@@ -126,16 +108,9 @@ describe('CreateStudent', () => {
             name: 'John Doe Mother',
             birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
             cpf: '48884199069',
-            contact: {
-              email: 'johndoemother@gmail.com',
-              phones: ['']
-            }
+            phones: ['85988779988']
           }
         ],
-        confirmedAt: null,
-        contact: {
-          email: 'johndoe@email.com'
-        },
         address: {
           cep: '99999-000',
           city: 'Cidade',
@@ -151,7 +126,7 @@ describe('CreateStudent', () => {
   it('should not create a student with any parent with invalid cpf', async () => {
     await expect(
       createStudentService.execute({
-        username: 'johndoe',
+        email: 'johndoe@email.com',
         password: 'password',
         schoolId: school._id.toHexString(),
         name: 'John Doe',
@@ -162,16 +137,9 @@ describe('CreateStudent', () => {
             name: 'John Doe Mother',
             birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
             cpf: '48884199061',
-            contact: {
-              email: 'johndoemother@gmail.com',
-              phones: ['']
-            }
+            phones: ['85988779988']
           }
         ],
-        confirmedAt: null,
-        contact: {
-          email: 'johndoe@email.com'
-        },
         address: {
           cep: '99999-000',
           city: 'Cidade',
@@ -186,7 +154,7 @@ describe('CreateStudent', () => {
 
   it('should not create a student with the same cpf', async () => {
     await createStudentService.execute({
-      username: 'johndoe',
+      email: 'johndoe@email.com',
       password: 'password',
       schoolId: school._id.toHexString(),
       name: 'John Doe',
@@ -197,16 +165,9 @@ describe('CreateStudent', () => {
           name: 'John Doe Mother',
           birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
           cpf: '48884199069',
-          contact: {
-            email: 'johndoemother@gmail.com',
-            phones: []
-          }
+          phones: ['85988779988']
         }
       ],
-      confirmedAt: null,
-      contact: {
-        email: 'johndoe@email.com'
-      },
       address: {
         cep: '99999-000',
         city: 'Cidade',
@@ -219,7 +180,7 @@ describe('CreateStudent', () => {
 
     await expect(
       createStudentService.execute({
-        username: 'johndoe',
+        email: 'johndoe@email.com',
         password: 'password',
         schoolId: school._id.toHexString(),
         name: 'John Doe',
@@ -230,16 +191,9 @@ describe('CreateStudent', () => {
             name: 'John Doe Mother',
             birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
             cpf: '48884199069',
-            contact: {
-              email: 'johndoemother@gmail.com',
-              phones: []
-            }
+            phones: ['85988779988']
           }
         ],
-        confirmedAt: null,
-        contact: {
-          email: 'johndoe@email.com'
-        },
         address: {
           cep: '99999-000',
           city: 'Cidade',
@@ -254,7 +208,7 @@ describe('CreateStudent', () => {
 
   it('should not create a student with the same username', async () => {
     await createStudentService.execute({
-      username: 'johndoe',
+      email: 'johndoe@email.com',
       password: 'password',
       schoolId: school._id.toHexString(),
       name: 'John Doe',
@@ -265,16 +219,9 @@ describe('CreateStudent', () => {
           name: 'John Doe Mother',
           birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
           cpf: '48884199069',
-          contact: {
-            email: 'johndoemother@gmail.com',
-            phones: []
-          }
+          phones: ['85988779988']
         }
       ],
-      confirmedAt: null,
-      contact: {
-        email: 'johndoe@email.com'
-      },
       address: {
         cep: '99999-000',
         city: 'Cidade',
@@ -287,7 +234,7 @@ describe('CreateStudent', () => {
 
     await expect(
       createStudentService.execute({
-        username: 'johndoe',
+        email: 'johndoe2@email.com',
         password: 'password',
         schoolId: school._id.toHexString(),
         name: 'John Doe',
@@ -298,16 +245,9 @@ describe('CreateStudent', () => {
             name: 'John Doe Mother',
             birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
             cpf: '48884199069',
-            contact: {
-              email: 'johndoemother@gmail.com',
-              phones: []
-            }
+            phones: ['85988779988']
           }
         ],
-        confirmedAt: null,
-        contact: {
-          email: 'johndoe2@email.com'
-        },
         address: {
           cep: '99999-000',
           city: 'Cidade',
@@ -322,7 +262,7 @@ describe('CreateStudent', () => {
 
   it('should not create a student with the same email', async () => {
     await createStudentService.execute({
-      username: 'johndoe2',
+      email: 'johndoe@email.com',
       password: 'password',
       schoolId: school._id.toHexString(),
       name: 'John Doe',
@@ -333,16 +273,9 @@ describe('CreateStudent', () => {
           name: 'John Doe Mother',
           birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
           cpf: '48884199069',
-          contact: {
-            email: 'johndoemother@gmail.com',
-            phones: []
-          }
+          phones: []
         }
       ],
-      confirmedAt: null,
-      contact: {
-        email: 'johndoe@email.com'
-      },
       address: {
         cep: '99999-000',
         city: 'Cidade',
@@ -355,7 +288,7 @@ describe('CreateStudent', () => {
 
     await expect(
       createStudentService.execute({
-        username: 'johndoe',
+        email: 'johndoe@email.com',
         password: 'password',
         schoolId: school._id.toHexString(),
         name: 'John Doe',
@@ -366,16 +299,9 @@ describe('CreateStudent', () => {
             name: 'John Doe Mother',
             birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
             cpf: '48884199069',
-            contact: {
-              email: 'johndoemother@gmail.com',
-              phones: []
-            }
+            phones: []
           }
         ],
-        confirmedAt: null,
-        contact: {
-          email: 'johndoe@email.com'
-        },
         address: {
           cep: '99999-000',
           city: 'Cidade',

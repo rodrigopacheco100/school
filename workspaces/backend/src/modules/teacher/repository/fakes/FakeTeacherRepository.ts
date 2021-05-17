@@ -14,6 +14,7 @@ export default class FakeTeacherRepository implements ITeacherRepository {
       ...rest,
       schoolId: new ObjectID(schoolId),
       type: AccountType.Teacher,
+      confirmedAt: null,
       createdAt: new Date(),
       updatedAt: new Date()
     };
@@ -23,16 +24,12 @@ export default class FakeTeacherRepository implements ITeacherRepository {
     return teacher;
   }
 
-  async findByUsername(username: string): Promise<Teacher> {
-    return this.teachers.find(teacher => teacher.username === username);
-  }
-
   async findById(id: string): Promise<Teacher> {
     return this.teachers.find(teacher => teacher._id === new ObjectID(id));
   }
 
   async findByEmail(email: string): Promise<Teacher> {
-    return this.teachers.find(teacher => teacher.contact.email === email);
+    return this.teachers.find(teacher => teacher.email === email);
   }
 
   async findByCPF(cpf: string): Promise<Teacher> {

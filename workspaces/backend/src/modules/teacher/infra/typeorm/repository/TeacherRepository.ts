@@ -11,7 +11,8 @@ export default class TeacherRepository implements ITeacherRepository {
     const teacher = teacherRepository.create({
       ...params,
       schoolId: new ObjectID(schoolId),
-      type: AccountType.Teacher
+      type: AccountType.Teacher,
+      confirmedAt: null
     });
     await teacherRepository.save(teacher);
     return teacher;
@@ -22,12 +23,6 @@ export default class TeacherRepository implements ITeacherRepository {
     const teacher = await teacherRepository.findOne({
       where: { _id: new ObjectID(id) }
     });
-    return teacher;
-  }
-
-  async findByUsername(username: string): Promise<Teacher> {
-    const teacherRepository = getMongoRepository(Teacher);
-    const teacher = await teacherRepository.findOne({ where: { username } });
     return teacher;
   }
 

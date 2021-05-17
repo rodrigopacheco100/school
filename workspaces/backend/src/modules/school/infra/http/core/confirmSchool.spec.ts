@@ -2,6 +2,7 @@ import request from 'supertest';
 import app from '@shared/infra/http/app';
 import { State } from '@shared/types/enums';
 import { Application } from 'express';
+import ConfirmSchoolDTO from '@modules/school/dtos/ConfirmSchoolDTO';
 
 describe('/school/confirmSchool', () => {
   let application: Application;
@@ -32,9 +33,11 @@ describe('/school/confirmSchool', () => {
         }
       });
 
-    const response = await request(application).put(`/school/confirmSchool`).send({
-      _id: schoolResponse.body._id
-    });
+    const response = await request(application)
+      .put(`/school/confirmSchool`)
+      .send({
+        _id: schoolResponse.body._id
+      } as ConfirmSchoolDTO);
 
     expect(response.body).toBeDefined();
     expect(response.status).toBe(200);

@@ -12,6 +12,7 @@ export default class StudentRepository implements IStudentRepository {
     const student = studentRepository.create({
       ...params,
       schoolId: new ObjectID(schoolId),
+      confirmedAt: null,
       type: AccountType.Student
     });
     await studentRepository.save(student);
@@ -26,16 +27,10 @@ export default class StudentRepository implements IStudentRepository {
     return student;
   }
 
-  async findByUsername(username: string): Promise<Student> {
-    const studentRepository = getMongoRepository(Student);
-    const student = await studentRepository.findOne({ where: { username } });
-    return student;
-  }
-
   async findByEmail(email: string): Promise<Student> {
     const studentRepository = getMongoRepository(Student);
     const student = await studentRepository.findOne({
-      where: { 'contact.email': email }
+      where: { email }
     });
     return student;
   }
