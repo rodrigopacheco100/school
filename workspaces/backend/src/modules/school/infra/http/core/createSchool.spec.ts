@@ -54,7 +54,6 @@ describe('/school/createSchool', () => {
         }
       });
 
-    expect(response.body.status).toBe('error');
     expect(response.status).toBe(400);
   });
 });

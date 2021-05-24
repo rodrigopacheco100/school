@@ -12,7 +12,7 @@ import routes from './routes';
 export default async (): Promise<Application> => {
   const app = express();
 
-  if (process.env.NODE_ENV !== 'TEST') await connectDB();
+  await connectDB();
 
   containers();
 

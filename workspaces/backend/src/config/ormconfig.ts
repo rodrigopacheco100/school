@@ -25,6 +25,16 @@ const getMongoConnection = (): MongoConnectionOptions => {
         useNewUrlParser: true,
         entities: ['src/modules/**/entity/*.ts']
       };
+    case 'TEST':
+      return {
+        type: 'mongodb',
+        url: `mongodb://docker:docker@localhost/school`,
+        synchronize: false,
+        logging: false,
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+        entities: ['src/modules/**/entity/*.ts']
+      };
     default:
       return null;
   }

@@ -7,9 +7,10 @@
   "scripts": {
     "dev": "yarn docker-up && yarn start",
     "start": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only src/index.ts",
-    "docker-up": "docker-compose up -d",
+    "docker-up": "docker compose up -d",
+    "docker-down": "docker compose down",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "test": "cross-env NODE_ENV=TEST jest",
+    "test": "cross-env NODE_ENV=TEST yarn docker-down && yarn docker-up && jest",
     "tsc-check": "tsc --noEmit --skipLibCheck -p . && eslint ."
   },
   "dependencies": {

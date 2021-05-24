@@ -4,7 +4,7 @@ version: '3.7'
 services:
 
   mongo:
-    container_name: school
+    container_name: mongodb
     image: mongo
     ports:
       - 27017:27017

@@ -12,12 +12,12 @@ describe('/school/confirmSchool', () => {
     application = await app();
   });
 
-  it('should be able to create to confirm a school', async () => {
+  it('should be able to confirm a school', async () => {
     const body: CreateSchoolDTO = {
       password: 'password',
       name: 'John Doe',
-      cnpj: '95983747000113',
-      email: 'johndoe@email.com',
+      cnpj: '75390640000154',
+      email: 'johndoe3@email.com',
       address: {
         cep: '99999-000',
         city: 'Cidade',
@@ -43,7 +43,6 @@ describe('/school/confirmSchool', () => {
   it('should not be able to create to confirm a school without sending id', async () => {
     const response = await request(application).put('/school/confirmSchool').send({});
 
-    expect(response.body.status).toBe('error');
     expect(response.status).toBe(400);
   });
 });
