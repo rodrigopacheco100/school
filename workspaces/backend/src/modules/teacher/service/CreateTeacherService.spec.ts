@@ -153,7 +153,7 @@ describe('CreateTeacher', () => {
   });
 
   it('should not create a teacher with the same email', async () => {
-    const teacher = await createTeacherService.execute({
+    await createTeacherService.execute({
       password: 'password',
       name: 'John Doe',
       schoolId: school._id.toHexString(),
