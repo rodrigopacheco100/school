@@ -206,60 +206,6 @@ describe('CreateStudent', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('should not create a student with the same username', async () => {
-    await createStudentService.execute({
-      email: 'johndoe@email.com',
-      password: 'password',
-      schoolId: school._id.toHexString(),
-      name: 'John Doe',
-      cpf: '64249678008',
-      birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
-      parents: [
-        {
-          name: 'John Doe Mother',
-          birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
-          cpf: '48884199069',
-          phones: ['85988779988']
-        }
-      ],
-      address: {
-        cep: '99999-000',
-        city: 'Cidade',
-        neighborhood: 'Bairro',
-        number: 123,
-        state: State.Distrito_Federal,
-        street: 'Rua'
-      }
-    });
-
-    await expect(
-      createStudentService.execute({
-        email: 'johndoe2@email.com',
-        password: 'password',
-        schoolId: school._id.toHexString(),
-        name: 'John Doe',
-        cpf: '48368660068',
-        birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
-        parents: [
-          {
-            name: 'John Doe Mother',
-            birth: date.convertBrazilianStringDateToUTC('01/01/2000'),
-            cpf: '48884199069',
-            phones: ['85988779988']
-          }
-        ],
-        address: {
-          cep: '99999-000',
-          city: 'Cidade',
-          neighborhood: 'Bairro',
-          number: 123,
-          state: State.Distrito_Federal,
-          street: 'Rua'
-        }
-      })
-    ).rejects.toBeInstanceOf(AppError);
-  });
-
   it('should not create a student with the same email', async () => {
     await createStudentService.execute({
       email: 'johndoe@email.com',

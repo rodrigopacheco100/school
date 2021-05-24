@@ -12,23 +12,22 @@ describe('/school/createSchool', () => {
   });
 
   it('should be able to create a school', async () => {
-    const response = await request(application)
-      .post('/school/createSchool')
-      .send({
-        password: 'password',
-        name: 'John Doe',
-        cnpj: '95983747000113',
-        confirmedAt: null,
-        email: 'johndoe@email.com',
-        address: {
-          cep: '99999-000',
-          city: 'Cidade',
-          neighborhood: 'Bairro',
-          number: 123,
-          state: State.Distrito_Federal,
-          street: 'Rua'
-        }
-      } as CreateSchoolDTO);
+    const body: CreateSchoolDTO = {
+      password: 'password',
+      name: 'John Doe',
+      cnpj: '95983747000113',
+      email: 'johndoe@email.com',
+      address: {
+        cep: '99999-000',
+        city: 'Cidade',
+        neighborhood: 'Bairro',
+        number: 123,
+        state: State.Distrito_Federal,
+        street: 'Rua'
+      }
+    };
+
+    const response = await request(application).post('/school/createSchool').send(body);
 
     expect(response.body).toBeDefined();
     expect(response.status).toBe(201);

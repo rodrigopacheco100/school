@@ -3,6 +3,7 @@ import app from '@shared/infra/http/app';
 import { State } from '@shared/types/enums';
 import { Application } from 'express';
 import ConfirmSchoolDTO from '@modules/school/dtos/ConfirmSchoolDTO';
+import CreateSchoolDTO from '@modules/school/dtos/CreateSchoolDTO';
 
 describe('/school/confirmSchool', () => {
   let application: Application;
@@ -12,26 +13,22 @@ describe('/school/confirmSchool', () => {
   });
 
   it('should be able to create to confirm a school', async () => {
-    const schoolResponse = await request(application)
-      .post('/school/createSchool')
-      .send({
-        username: 'johndoe',
-        password: 'password',
-        name: 'John Doe',
-        cnpj: '40042391000121',
-        confirmedAt: null,
-        contact: {
-          email: 'johndoe@email.com'
-        },
-        address: {
-          cep: '99999-000',
-          city: 'Cidade',
-          neighborhood: 'Bairro',
-          number: 123,
-          state: State.Distrito_Federal,
-          street: 'Rua'
-        }
-      });
+    const body: CreateSchoolDTO = {
+      password: 'password',
+      name: 'John Doe',
+      cnpj: '95983747000113',
+      email: 'johndoe@email.com',
+      address: {
+        cep: '99999-000',
+        city: 'Cidade',
+        neighborhood: 'Bairro',
+        number: 123,
+        state: State.Distrito_Federal,
+        street: 'Rua'
+      }
+    };
+
+    const schoolResponse = await request(application).post('/school/createSchool').send(body);
 
     const response = await request(application)
       .put(`/school/confirmSchool`)
