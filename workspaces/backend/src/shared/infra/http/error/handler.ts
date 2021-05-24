@@ -14,11 +14,10 @@ const errorHandler: ErrorRequestHandler = (error, request, response, _) => {
     error
   });
 
-  if (error instanceof AppError)
-    return response.status(error.statusCode).json({ status: 'error', message: error.message });
+  if (error instanceof AppError) return response.status(error.status).json(error);
 
   return response.status(500).json({
-    status: 'error',
+    status: 500,
     message: 'Internal server error'
   });
 };

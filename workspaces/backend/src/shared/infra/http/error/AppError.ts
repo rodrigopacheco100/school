@@ -1,10 +1,10 @@
 export default class AppError {
   public readonly message: string | string[];
 
-  public readonly statusCode: number;
+  public readonly status: number;
 
-  constructor(message: string | string[], statusCode = 400) {
+  constructor(message: string | string[], status = 400) {
     this.message = message;
-    this.statusCode = statusCode;
+    this.status = status;
   }
 }
